@@ -37,13 +37,13 @@ kirby()->set('route', [
                     ->filterBy('intendedTemplate', 'not in', $ignoredTemplates)
                     ->map('sitemapProcessAttributes');
 
-        $transform = c::get('sitemap.transform', null);
+        $process = c::get('sitemap.process', null);
 
-        if (is_callable($transform)) {
-            $pages = $transform($pages);
+        if (is_callable($process)) {
+            $pages = $process($pages);
             if (! is_a($pages, 'Collection')) throw new Exception($pages . ' is not a Collection.');
-        } elseif (! is_null($transform)) {
-            throw new Exception($transform . ' is not callable.');
+        } elseif (! is_null($process)) {
+            throw new Exception($process . ' is not callable.');
         }
 
         $sitemap = tpl::load(__DIR__ . DS . 'sitemap.html.php', compact('languages', 'pages'));

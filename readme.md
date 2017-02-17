@@ -10,6 +10,7 @@ XML Sitemap is a powerful Kirby CMS plugin that generates a nice `sitemap.xml` f
 - PHP 5.4+
 
 ## Installation
+After installing the plugin using any of the methods below you should be able to visit `https://yoursite.com/sitemap.xml` to see an human readable sitemap without any initial configuration.
 
 ### Download
 [Download the files](https://github.com/pedroborges/kirby-xml-sitemap/archive/master.zip) and place them inside `site/plugins/xml-sitemap`.
@@ -40,15 +41,81 @@ Updating is as easy as running a few commands.
     $ git submodule update --init --recursive
 
 ## Options
-The following options can be set in your `/site/config/config.php`:
+Most likely you won't need to change any option manually. However there are the following options in case you need to change the defaults:
 
-    c::set('sitemap.include.images', true);
-    c::set('sitemap.include.invisible', false);
-    c::set('sitemap.ignored.pages', []);
-    c::set('sitemap.ignored.templates', []);
-    c::set('sitemap.frequency', false);
-    c::set('sitemap.priority', false);
-    c::set('sitemap.transform', null);
+```php
+// Show/hide images
+c::set('sitemap.include.images', true);
+
+// Add/remove invisible pages
+c::set('sitemap.include.invisible', false);
+
+// URI of pages to remove
+c::set('sitemap.ignored.pages', []);
+
+// URI of templates to remove
+c::set('sitemap.ignored.templates', []);
+
+// Show/hide change frequency attribute
+c::set('sitemap.frequency', false);
+
+// Show/hide priority attribute
+c::set('sitemap.priority', false);
+```
+
+## Extensions
+
+#### `sitemap.frequency`
+When this option is set to `true` the plugin will default to [this function](https://github.com/pedroborges/kirby-xml-sitemap/blob/bcd95cdbecc99809161d702c96c9fb25e66e69f8/sitemap.php#L61-L71) to determine the value of the `changefreq` attribute of URLs for your XML sitemap.
+
+You can pass a callback to use your own logic:
+
+```php
+c::set('sitemap.frequency', function($page) {
+    // You must return a string
+    return $page->isHomePage() ? 'daily' : 'never';
+});
+```
+
+#### `sitemap.priority`
+When this option is set to `true` the plugin will default to [this function](https://github.com/pedroborges/kirby-xml-sitemap/blob/bcd95cdbecc99809161d702c96c9fb25e66e69f8/sitemap.php#L57-L59) to determine the value of the `priority` attribute of URLs for your XML sitemap.
+
+You can pass a callback to use your own logic:
+
+```php
+c::set('sitemap.priority', function($page) {
+    // You must return a floating point number between 0 and 1
+    return $page->depth() === 1 ? 1 : 0.5;
+});
+```
+
+#### `sitemap.process`
+The XML Sitemap plugin includes options that are enough for most projects. However there are cases in which you need to have bit more of control. This option allows you to process the pages collection in any way you want, such as removing or adding a specific set of pages.
+
+```php
+// Add a page that was removed on
+// the `sitemap.ignored.templates` option
+c::set('sitemap.process', function($pages) {
+    $shy = page('i-am-a-shy-page');
+
+    return $pages->add($shy);
+});
+
+// Filter a set of pages based on a field value
+c::set('sitemap.process', function($pages) {
+    return $pages->filter(function($page) {
+        // Remove future posts
+        if ($page->intendedTemplate() === 'post') {
+            return $page->date() < time();
+        }
+
+        // Keep all other pages
+        return true;
+    });
+});
+```
+
+> Just make sure you are returning a `Pages` collection.
 
 ## Change Log
 All notable changes to this project will be documented at: <https://github.com/pedroborges/kirby-xml-sitemap/blob/master/changelog.md>
