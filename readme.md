@@ -46,8 +46,8 @@ The following options can be set in your `/site/config/config.php`:
     c::set('sitemap.include.invisible', false);
     c::set('sitemap.ignored.pages', []);
     c::set('sitemap.ignored.templates', []);
-    c::set('sitemap.attributes.frequency', false);
-    c::set('sitemap.attributes.priority', false);
+    c::set('sitemap.frequency', false);
+    c::set('sitemap.priority', false);
     c::set('sitemap.transform', null);
 
 ## Change Log

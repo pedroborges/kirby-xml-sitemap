@@ -8,11 +8,11 @@
     <?php endforeach ?>
     <?php endif ?>
 
-    <?php if (c::get('sitemap.attributes.priority', false)) : ?>
+    <?php if (c::get('sitemap.priority', false)) : ?>
     <priority><?= $page->priority() ?></priority>
     <?php endif ?>
 
-    <?php if (c::get('sitemap.attributes.frequency', false)) : ?>
+    <?php if (c::get('sitemap.frequency', false)) : ?>
     <changefreq><?= $page->frequency() ?></changefreq>
     <?php endif ?>
 

@@ -35,26 +35,10 @@ kirby()->set('route', [
         $pages = $pages
                     ->not($ignoredPages)
                     ->filterBy('intendedTemplate', 'not in', $ignoredTemplates)
-                    ->map(function($page) {
-                        $priority = $page->isHomePage() ? 1 : number_format(1.6 / ($page->depth() + 1), 1);
+                    ->map('sitemapProcessAttributes');
 
-                        if (c::get('sitemap.attributes.priority', false)) {
-                            $page->priority = $priority;
-                        }
-
-                        if (c::get('sitemap.attributes.frequency', false)) {
-                            switch (true) {
-                                case $priority === 1  : $frequency = 'daily';  break;
-                                case $priority >= 0.5 : $frequency = 'weekly'; break;
-                                default : $frequency = 'monthly';
-                            }
         $transform = c::get('sitemap.transform', null);
 
-                            $page->frequency = $frequency;
-                        }
-
-                        return $page;
-                    });
         if (is_callable($transform)) {
             $pages = $transform($pages);
             if (! is_a($pages, 'Collection')) throw new Exception($pages . ' is not a Collection.');
@@ -69,3 +53,38 @@ kirby()->set('route', [
         return new response($sitemap, 'xml');
     }
 ]);
+
+function sitemapPriority($page) {
+    return $page->isHomePage() ? 1 : number_format(1.6 / ($page->depth() + 1), 1);
+}
+
+function sitemapFrequency($page) {
+    $priority = sitemapPriority($page);
+
+    switch (true) {
+        case $priority === 1  : $frequency = 'daily';  break;
+        case $priority >= 0.5 : $frequency = 'weekly'; break;
+        default : $frequency = 'monthly';
+    }
+
+    return $frequency;
+}
+
+function sitemapProcessAttributes($page) {
+    $frequency = c::get('sitemap.frequency', false);
+    $priority  = c::get('sitemap.priority', false);
+
+    if ($frequency) {
+        $frequency = is_bool($frequency) ? 'sitemapFrequency' : $frequency;
+        if (! is_callable($frequency)) throw new Exception($frequency . ' is not callable.');
+        $page->frequency = $frequency($page);
+    }
+
+    if ($priority) {
+        $priority = is_bool($priority) ? 'sitemapPriority' : $priority;
+        if (! is_callable($priority)) throw new Exception($priority . ' is not callable.');
+        $page->priority = $priority($page);
+    }
+
+    return $page;
+}
