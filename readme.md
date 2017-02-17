@@ -2,6 +2,8 @@
 
 XML Sitemap is a powerful Kirby CMS plugin that generates a nice `sitemap.xml` for your site!
 
+![Kirby XML Sitemap screenshot](https://raw.githubusercontent.com/pedroborges/kirby-xml-sitemap/master/screenshot.png)
+
 ## Requirements
 - Git
 - Kirby 2.4.0+
