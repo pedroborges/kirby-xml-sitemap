@@ -16,7 +16,7 @@
     <changefreq><?= $page->frequency() ?></changefreq>
     <?php endif ?>
 
-    <?php if (c::get('sitemap.attributes.images', true) && $page->hasImages()) : ?>
+    <?php if (c::get('sitemap.include.images', true) && $page->hasImages()) : ?>
     <?php foreach ($page->images() as $image) : ?>
     <?php snippet('sitemap.image', compact('image')) ?>
     <?php endforeach ?>

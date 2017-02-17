@@ -42,10 +42,10 @@ Updating is as easy as running a few commands.
 ## Options
 The following options can be set in your `/site/config/config.php`:
 
+    c::set('sitemap.include.images', true);
     c::set('sitemap.include.invisible', false);
     c::set('sitemap.ignored.pages', []);
     c::set('sitemap.ignored.templates', []);
-    c::set('sitemap.attributes.images', true);
     c::set('sitemap.attributes.frequency', false);
     c::set('sitemap.attributes.priority', false);
 
