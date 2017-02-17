@@ -1,6 +1,6 @@
 <url>
     <loc><?= html($page->url()) ?></loc>
-    <lastmod><?= $page->modified('c') ?></lastmod>
+    <lastmod><?= date('c', $page->modified()) ?></lastmod>
 
     <?php if ($languages && $languages->count() > 1) : ?>
     <?php foreach ($languages as $lang) : ?>
