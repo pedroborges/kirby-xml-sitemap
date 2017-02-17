@@ -48,12 +48,19 @@ kirby()->set('route', [
                                 case $priority >= 0.5 : $frequency = 'weekly'; break;
                                 default : $frequency = 'monthly';
                             }
+        $transform = c::get('sitemap.transform', null);
 
                             $page->frequency = $frequency;
                         }
 
                         return $page;
                     });
+        if (is_callable($transform)) {
+            $pages = $transform($pages);
+            if (! is_a($pages, 'Collection')) throw new Exception($pages . ' is not a Collection.');
+        } elseif (! is_null($transform)) {
+            throw new Exception($transform . ' is not callable.');
+        }
 
         $sitemap = tpl::load(__DIR__ . DS . 'sitemap.html.php', compact('languages', 'pages'));
 

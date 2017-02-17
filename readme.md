@@ -48,6 +48,7 @@ The following options can be set in your `/site/config/config.php`:
     c::set('sitemap.ignored.templates', []);
     c::set('sitemap.attributes.frequency', false);
     c::set('sitemap.attributes.priority', false);
+    c::set('sitemap.transform', null);
 
 ## Change Log
 All notable changes to this project will be documented at: <https://github.com/pedroborges/kirby-xml-sitemap/blob/master/changelog.md>
