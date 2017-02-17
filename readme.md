@@ -44,7 +44,7 @@ Updating is as easy as running a few commands.
 Most likely you won't need to change any option manually. However there are the following options in case you need to change the defaults:
 
 ```php
-// Show/hide images
+// Enable/disable adding images URLs
 c::set('sitemap.include.images', true);
 
 // Add/remove invisible pages
@@ -53,22 +53,22 @@ c::set('sitemap.include.invisible', false);
 // URI of pages to remove
 c::set('sitemap.ignored.pages', []);
 
-// URI of templates to remove
+// Templates names to remove
 c::set('sitemap.ignored.templates', []);
 
 // Show/hide change frequency attribute
+// (see more below)
 c::set('sitemap.frequency', false);
 
 // Show/hide priority attribute
+// (see more below)
 c::set('sitemap.priority', false);
 ```
 
 ## Extensions
 
 #### `sitemap.frequency`
-When this option is set to `true` the plugin will default to [this function](https://github.com/pedroborges/kirby-xml-sitemap/blob/bcd95cdbecc99809161d702c96c9fb25e66e69f8/sitemap.php#L61-L71) to determine the value of the `changefreq` attribute of URLs for your XML sitemap.
-
-You can pass a callback to use your own logic:
+When this option is set to `true` the plugin will default to [this function](https://github.com/pedroborges/kirby-xml-sitemap/blob/bcd95cdbecc99809161d702c96c9fb25e66e69f8/sitemap.php#L61-L71) to determine the value of the `changefreq` attribute of URLs on your XML sitemap. You can pass a callback to use your own logic:
 
 ```php
 c::set('sitemap.frequency', function($page) {
@@ -78,9 +78,7 @@ c::set('sitemap.frequency', function($page) {
 ```
 
 #### `sitemap.priority`
-When this option is set to `true` the plugin will default to [this function](https://github.com/pedroborges/kirby-xml-sitemap/blob/bcd95cdbecc99809161d702c96c9fb25e66e69f8/sitemap.php#L57-L59) to determine the value of the `priority` attribute of URLs for your XML sitemap.
-
-You can pass a callback to use your own logic:
+When this option is set to `true` the plugin will default to [this function](https://github.com/pedroborges/kirby-xml-sitemap/blob/bcd95cdbecc99809161d702c96c9fb25e66e69f8/sitemap.php#L57-L59) to determine the value of the `priority` attribute of URLs on your XML sitemap. You can pass a callback to use your own logic:
 
 ```php
 c::set('sitemap.priority', function($page) {
@@ -90,13 +88,13 @@ c::set('sitemap.priority', function($page) {
 ```
 
 #### `sitemap.process`
-The XML Sitemap plugin includes options that are enough for most projects. However there are cases in which you need to have bit more of control. This option allows you to process the pages collection in any way you want, such as removing or adding a specific set of pages.
+The XML Sitemap plugin includes options that are enough for most projects. However there are cases in which you need more control. This option allows you to process the pages collection in any way you want, such as removing or adding a specific set of pages.
 
 ```php
-// Add a page that was removed on
-// the `sitemap.ignored.templates` option
+// Add a page that was removed on the
+// `sitemap.ignored.templates` option
 c::set('sitemap.process', function($pages) {
-    $shy = page('i-am-a-shy-page');
+    $shy = page('super-shy-page');
 
     return $pages->add($shy);
 });
