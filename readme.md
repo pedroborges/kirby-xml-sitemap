@@ -4,13 +4,19 @@ XML Sitemap is a powerful Kirby CMS plugin that generates a nice `sitemap.xml` f
 
 ![Kirby XML Sitemap screenshot](https://raw.githubusercontent.com/pedroborges/kirby-xml-sitemap/master/screenshot.png)
 
+## Main features
+- Cache support
+- Human-readable XML sitemap
+- Image attributes
+- Multi-language support
+- Powerful options
+
 ## Requirements
-- Git
 - Kirby 2.4.0+
 - PHP 5.4+
 
 ## Installation
-After installing the plugin using any of the methods below you should be able to visit `https://yoursite.com/sitemap.xml` to see an human readable sitemap without any initial configuration.
+After installing the plugin using any of the methods below you should be able to visit `https://yoursite.com/sitemap.xml` to see an human-readable sitemap without any initial configuration.
 
 ### Download
 [Download the files](https://github.com/pedroborges/kirby-xml-sitemap/archive/master.zip) and place them inside `site/plugins/xml-sitemap`.
@@ -113,7 +119,7 @@ c::set('sitemap.process', function($pages) {
 });
 ```
 
-> Just make sure you are returning a `Pages` collection.
+> You can do any number of manipulation on the `$pages` collection.
 
 ## Change Log
 All notable changes to this project will be documented at: <https://github.com/pedroborges/kirby-xml-sitemap/blob/master/changelog.md>
