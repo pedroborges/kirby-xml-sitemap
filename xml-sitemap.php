@@ -39,9 +39,12 @@ kirby()->set('route', [
 
         $process = c::get('sitemap.process', null);
 
-        if (is_callable($process)) {
+        if ($process instanceof Closure) {
             $pages = $process($pages);
-            if (! is_a($pages, 'Collection')) throw new Exception($pages . ' is not a Collection.');
+
+            if (! $pages instanceof Collection) {
+                throw new Exception('The option "sitemap.process" must return a Collection.');
+            }
         } elseif (! is_null($process)) {
             throw new Exception($process . ' is not callable.');
         }
@@ -76,13 +79,13 @@ function sitemapProcessAttributes($page) {
 
     if ($frequency) {
         $frequency = is_bool($frequency) ? 'sitemapFrequency' : $frequency;
-        if (! is_callable($frequency)) throw new Exception($frequency . ' is not callable.');
+        if (! $frequency instanceof Closure) throw new Exception($frequency . ' is not callable.');
         $page->frequency = $frequency($page);
     }
 
     if ($priority) {
         $priority = is_bool($priority) ? 'sitemapPriority' : $priority;
-        if (! is_callable($priority)) throw new Exception($priority . ' is not callable.');
+        if (! $priority instanceof Closure) throw new Exception($priority . ' is not callable.');
         $page->priority = $priority($page);
     }
 
