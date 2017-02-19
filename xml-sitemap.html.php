@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="<?= url('sitemap.xsl') ?>"?>
+<?php // Echo header to avoid issue when PHP short tag is enabled ?>
+<?= '<?xml version="1.0" encoding="utf-8"?>'; ?>
+<?= '<?xml-stylesheet type="text/xsl" href="' . url('sitemap.xsl') . '"?>'; ?>
 <urlset
     xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
