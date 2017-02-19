@@ -25,6 +25,14 @@ kirby()->set('route', [
         $ignoredPages      = c::get('sitemap.ignored.pages', []);
         $ignoredTemplates  = c::get('sitemap.ignored.templates', []);
 
+        if (! is_array($ignoredPages)) {
+            throw new Exception('The option "sitemap.ignored.pages" must be an array.');
+        }
+
+        if (! is_array($ignoredTemplates)) {
+            throw new Exception('The option "sitemap.ignored.templates" must be an array.');
+        }
+
         $languages = site()->languages();
         $pages     = site()->index();
 
