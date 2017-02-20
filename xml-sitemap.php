@@ -57,7 +57,8 @@ kirby()->set('route', [
             throw new Exception($process . ' is not callable.');
         }
 
-        $sitemap = tpl::load(__DIR__ . DS . 'xml-sitemap.html.php', compact('languages', 'pages'));
+        $template = __DIR__ . DS . 'xml-sitemap.html.php';
+        $sitemap  = tpl::load($template, compact('languages', 'pages'));
 
         cache::set('sitemap', $sitemap);
 
