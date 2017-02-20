@@ -50,7 +50,8 @@ Updating is as easy as running a few commands.
 Most likely you won't need to change any option manually. However there are the following options in case you need to change the defaults:
 
 ```php
-// Enable/disable adding images URLs
+// License URL for your site's images
+c::set('sitemap.images.license', null);
 c::set('sitemap.include.images', true);
 
 // Add/remove invisible pages
