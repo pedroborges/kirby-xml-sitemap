@@ -47,11 +47,13 @@ Updating is as easy as running a few commands.
     $ git submodule update --init --recursive
 
 ## Options
-Most likely you won't need to change any option manually. However there are the following options in case you need to change the defaults:
+XML Sitemap works out of the box and most likely you won't need to change any option manually. However there are the following options in case you need to change the defaults:
 
 ```php
 // License URL for your site's images
 c::set('sitemap.images.license', null);
+
+// Enable/disable adding images to XML Sitemap
 c::set('sitemap.include.images', true);
 
 // Add/remove invisible pages
