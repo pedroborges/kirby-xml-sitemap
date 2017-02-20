@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Kirby XML Sitemap
+ *
+ * @version   1.0.0-beta.1
+ * @author    Pedro Borges <oi@pedroborg.es>
+ * @copyright Pedro Borges <oi@pedroborg.es>
+ * @link      https://github.com/pedroborges/kirby-xml-sitemap
+ * @license   MIT
+ */
+
 kirby()->set('snippet', 'sitemap.page', __DIR__ . '/snippets/page.php');
 kirby()->set('snippet', 'sitemap.image', __DIR__ . '/snippets/image.php');
 
