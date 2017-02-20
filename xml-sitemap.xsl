@@ -208,17 +208,24 @@
         <xsl:variable name="loc">
             <xsl:value-of select="image:loc"/>
         </xsl:variable>
+        <xsl:variable name="license_loc">
+            <xsl:value-of select="image:license"/>
+        </xsl:variable>
         <p>
             <strong>Image: </strong>
             <a href="{$loc}" class="mr2 link blue">
                 <xsl:value-of select="image:loc"/>
             </a>
+            <xsl:if test="image:license">
+                <small>
+                    <a href="{$license_loc}" class="dib mr2 ph2 pv1 tracked lh-solid link white bg-silver hover-bg-blue br-pill">license</a>
+                </small>
+            </xsl:if>
             <xsl:if test="image:caption">
                 <span class="i gray">
                     <xsl:value-of select="image:caption"/>
                 </span>
             </xsl:if>
-            <xsl:apply-templates/>
         </p>
     </xsl:template>
 
@@ -248,9 +255,9 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </a>
-            <a href="{$thumb_loc}" class="dib mr2 ph2 pv1 tracked lh-solid link white bg-silver hover-bg-blue br-pill">
-                thumb
-            </a>
+            <small>
+                <a href="{$thumb_loc}" class="dib mr2 ph2 pv1 tracked lh-solid link white bg-silver hover-bg-blue br-pill">thumb</a>
+            </small>
             <xsl:if test="video:title">
                 <span class="i gray">
                     <xsl:value-of select="video:title"/>
