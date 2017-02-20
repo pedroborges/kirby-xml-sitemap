@@ -87,13 +87,13 @@ function sitemapProcessAttributes($page) {
 
     if ($frequency) {
         $frequency = is_bool($frequency) ? 'sitemapFrequency' : $frequency;
-        if (! $frequency instanceof Closure) throw new Exception($frequency . ' is not callable.');
+        if (! is_callable($frequency)) throw new Exception($frequency . ' is not callable.');
         $page->frequency = $frequency($page);
     }
 
     if ($priority) {
         $priority = is_bool($priority) ? 'sitemapPriority' : $priority;
-        if (! $priority instanceof Closure) throw new Exception($priority . ' is not callable.');
+        if (! is_callable($priority)) throw new Exception($priority . ' is not callable.');
         $page->priority = $priority($page);
     }
 
