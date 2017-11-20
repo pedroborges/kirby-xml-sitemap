@@ -43,15 +43,27 @@ kirby()->set('route', [
             throw new Exception('The option "sitemap.ignored.templates" must be an array.');
         }
 
-        $languages = site()->languages();
-        $pages     = site()->index();
+        $languages     = site()->languages();
+        $pages         = site()->index();
+        $excludesPages = new Pages;
+
+        foreach ($ignoredPages as $uri) {
+            if (! str::endsWith($uri, '/*')) {
+                $p = site()->page($uri);
+                $excludesPages->append($uri,$p);
+            } else {
+                $parentURI = str::substr($uri, 0, -2);
+                $ps = site()->page($parentURI)->index();
+                $excludesPages = $excludesPages->merge($ps);
+            }
+        }
 
         if (! $includeInvisibles) {
             $pages = $pages->visible();
         }
 
         $pages = $pages
-                    ->not($ignoredPages)
+                    ->not($excludesPages)
                     ->filterBy('intendedTemplate', 'not in', $ignoredTemplates)
                     ->map('sitemapProcessAttributes');
 

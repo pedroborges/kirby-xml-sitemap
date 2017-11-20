@@ -59,7 +59,7 @@ c::set('sitemap.include.images', true);
 // Add/remove invisible pages
 c::set('sitemap.include.invisible', false);
 
-// URI of pages to remove
+// URI of pages to remove. Append “/*” to an URI to add all children of the page.
 c::set('sitemap.ignored.pages', []);
 
 // Templates names to remove
