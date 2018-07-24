@@ -8,17 +8,17 @@
     <?php endforeach ?>
     <?php endif ?>
 
-    <?php if (c::get('sitemap.priority', false)) : ?>
+    <?php if (option('pedroborges.xml-sitemap.priority')) : ?>
     <priority><?= $page->priority() ?></priority>
     <?php endif ?>
 
-    <?php if (c::get('sitemap.frequency', false)) : ?>
+    <?php if (option('pedroborges.xml-sitemap.frequency')) : ?>
     <changefreq><?= $page->frequency() ?></changefreq>
     <?php endif ?>
 
-    <?php if (c::get('sitemap.include.images', true) && $page->hasImages()) : ?>
+    <?php if (option('pedroborges.xml-sitemap.include.images') && $page->hasImages()) : ?>
     <?php foreach ($page->images() as $image) : ?>
-    <?php snippet('sitemap.image', compact('image')) ?>
+    <?php snippet('xml-sitemap/image', compact('image')) ?>
     <?php endforeach ?>
     <?php endif ?>
 </url>

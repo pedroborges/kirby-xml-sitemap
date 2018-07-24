@@ -1,0 +1,19 @@
+{
+    "name": "pedroborges/xml-sitemap",
+    "type": "plugin",
+    "version": "2.0.0",
+    "autoload": {
+        "files": [
+            "config.php"
+        ],
+        "psr-4": {
+            "Pedroborges\\": "classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pedro Borges",
+            "email": "oi@pedroborg.es"
+        }
+    ]
+}
