@@ -7,7 +7,7 @@
     <image:caption><![CDATA[<?= $image->alt() ?>]]></image:caption>
     <?php endif ?>
 
-    <?php if ($license = c::get('sitemap.images.license', null)) : ?>
+    <?php if ($license = option('pedroborges.xml-sitemap.images.license')) : ?>
     <image:license><?= html($license) ?></image:license>
     <?php endif ?>
 </image:image>

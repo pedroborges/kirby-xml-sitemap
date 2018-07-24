@@ -6,6 +6,6 @@
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <?php foreach ($pages as $page) : ?>
-    <?php snippet('sitemap.page', compact('languages', 'page')) ?>
+    <?php snippet('xml-sitemap/page', compact('languages', 'page')) ?>
     <?php endforeach ?>
 </urlset>
