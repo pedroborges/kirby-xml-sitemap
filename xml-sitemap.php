@@ -34,6 +34,7 @@ kirby()->set('route', [
         $includeInvisibles = c::get('sitemap.include.invisible', false);
         $ignoredPages      = c::get('sitemap.ignored.pages', []);
         $ignoredTemplates  = c::get('sitemap.ignored.templates', []);
+        $allowedTemplates  = c::get('sitemap.allowed.templates', []);
 
         if (! is_array($ignoredPages)) {
             throw new Exception('The option "sitemap.ignored.pages" must be an array.');
@@ -43,6 +44,14 @@ kirby()->set('route', [
             throw new Exception('The option "sitemap.ignored.templates" must be an array.');
         }
 
+        if (! is_array($allowedTemplates)) {
+            throw new Exception('The option "sitemap.allowed.templates" must be an array.');
+        }
+
+        if (count($allowedTemplates) > 0 && count($ignoredTemplates) > 0) {
+            throw new Exception('You can only set option "sitemap.allowed.templates" or "sitemap.ignored.templates", not both');
+        }
+
         $languages = site()->languages();
         $pages     = site()->index();
 
@@ -50,10 +59,17 @@ kirby()->set('route', [
             $pages = $pages->visible();
         }
 
-        $pages = $pages
-                    ->not($ignoredPages)
-                    ->filterBy('intendedTemplate', 'not in', $ignoredTemplates)
-                    ->map('sitemapProcessAttributes');
+        if (count($ignoredTemplates) > 0) {
+            $pages = $pages
+                ->not($ignoredPages)
+                ->filterBy('intendedTemplate', 'not in', $ignoredTemplates)
+                ->map('sitemapProcessAttributes');
+        } else {
+            $pages = $pages
+                ->not($ignoredPages)
+                ->filterBy('intendedTemplate', 'in', $allowedTemplates)
+                ->map('sitemapProcessAttributes');
+        }
 
         $process = c::get('sitemap.process', null);
 

@@ -62,8 +62,12 @@ c::set('sitemap.include.invisible', false);
 // URI of pages to remove
 c::set('sitemap.ignored.pages', []);
 
-// Templates names to remove
+// Template names to remove
 c::set('sitemap.ignored.templates', []);
+
+// or only include the following Templates
+c::set('sitemap.allowed.templates', []);
+// NOTE: You can only use ignored.templates or allowed.templates, not both.
 
 // Show/hide change frequency attribute
 // (see more below)
